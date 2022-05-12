@@ -10,32 +10,17 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    let p = l1, q = l2;
-    let k = new ListNode(0), dummy = k;
-    let carry = 0;
-    while(p || q) {
-        let val1 = p? p.val: 0;
-        let val2 = q? q.val: 0;
-        let val = val1 + val2 + carry;
-        if(val > 9) {
-            val -= 10;
-            carry = 1;
-        }
-        else {
-            carry = 0;
-        }
-        k.next = new ListNode(val);
-        k = k.next;
-        if(p) {
-            p = p.next;
-        }
-        if(q) {
-            q = q.next;
-        }
-    }
-    if(carry) {
-        k.next = new ListNode(1);
-    }
-    return dummy.next;
+ var addTwoNumbers = function(l1, l2) {
+  const dummy = new ListNode(-1)
+  let p = dummy
+  let carry = 0
+  while (l1 || l2 || carry) {
+    const sum = (l1 ? l1.val : 0) + (l2 ? l2.val : 0) + carry
+    carry = Math.floor(sum / 10)
+    p.next = new ListNode(sum % 10)
+    p = p.next
+    l1 && (l1 = l1.next)
+    l2 && (l2 = l2.next)
+  }
+  return dummy.next
 };
