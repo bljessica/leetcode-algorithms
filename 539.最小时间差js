@@ -1,0 +1,20 @@
+/**
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+var findMinDifference = function(timePoints) {
+  const arr = []
+  for (const v of timePoints) {
+    const numArr = v.split(':')
+    const h = parseInt(numArr[0])
+    const m = parseInt(numArr[1])
+    if (h < 12) arr.push((24 + h) * 60 + m)
+    arr.push(h * 60 + m)
+  }
+  arr.sort((a, b) => a - b)
+  let min = Number.MAX_SAFE_INTEGER
+  for (let i = 1; i < arr.length; i++) {
+    min = Math.min(min, arr[i] - arr[i - 1])
+  }
+  return min
+};
